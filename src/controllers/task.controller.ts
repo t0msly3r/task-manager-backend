@@ -15,7 +15,7 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
 		res.status(201).json(task);
   	} 
 	catch (error) {
-    next(error);
+	next(error);
   }
 };
 
@@ -23,9 +23,13 @@ export const getAll = async (req: Request, res: Response, next: NextFunction) =>
   
 	try
 	{
-		const userId = req.user!.userId;
-		const role = req.user!.role;
-		const tasks = await taskService.getTasks(userId, role);
+		if (!req.user) {
+			return res.status(401).json({ message: "Unathorized"});
+		}
+
+		const tasks = await taskService.getTasks(
+			req.user.userId,
+			req.user.role);
 		res.json(tasks);
 	}
 	catch (error) {
@@ -51,10 +55,16 @@ export const remove = async (req: Request, res: Response, next: NextFunction) =>
   
 	try
 	{
-		const {userId , role} = req.user!;
+		if (!req.user) {
+			return res.status(401).json({ message: "Unathorized"});
+		}
+		
 		const taskId = Number(req.params.id);
 
-		await taskService.deleteTask(userId, taskId, role);
+		await taskService.deleteTask(
+			req.user.userId,
+			taskId, 
+			req.user.role);
   		res.status(204).send();
 	}
 	catch (error) {

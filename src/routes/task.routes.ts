@@ -7,19 +7,19 @@ import { authenticate } from "../middlewares/authentication.middleware";
 const router = Router();
 
 router.post("/",
-    authenticate,
-    validate(createTaskSchema),
-    taskController.create);
+	authenticate,
+	validate(createTaskSchema),
+	taskController.create);
 router.get("/",
-    authenticate,
-    taskController.getAll);
+	authenticate,
+	taskController.getAll);
 router.put("/:id",
-    authenticate,
-    validate(idParamSchema, "params"),
-    validate(updateTaskSchema, "body"),
-    taskController.update);
+	authenticate,
+	validate(idParamSchema, "params"),
+	validate(updateTaskSchema, "body"),
+	taskController.update);
 router.delete("/:id",
-    authenticate, 
-    taskController.remove);
+	authenticate, 
+	taskController.remove);
 
 export default router;
