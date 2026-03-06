@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as authService from "../services/auth.service"
+import { UnathorizedError } from "../errors/UnathorizedError";
 
 export const register = async (
 	req: Request,
@@ -24,9 +25,26 @@ export const login = async (
 ) => {
 	try{
 		const { email, password } = req.body;
-		const token = await authService.loginUser(email, password); 
+		const result = await authService.loginUser(email, password); 
 
-		res.json({ token })
+		res.json(result)
+	} catch (error) {
+		next(error);
+	}
+}
+
+export const me = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		if (!req.user) {
+			throw new UnathorizedError();
+		}
+		const user = await authService.getMe(req.user.userId);
+
+		res.json(user);
 	} catch (error) {
 		next(error);
 	}
