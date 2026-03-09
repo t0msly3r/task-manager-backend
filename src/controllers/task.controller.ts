@@ -8,7 +8,7 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
 		const { title } = req.body;
 		if (!req.user)
 		{
-			return res.status(401).json({ message: "Unathorized"});
+			return res.status(401).json({ message: "Unauthorized"});
 		}
 		const userId = req.user.userId;
 		const task = await taskService.createTask(title, userId);
@@ -24,7 +24,7 @@ export const getAll = async (req: Request, res: Response, next: NextFunction) =>
 	try
 	{
 		if (!req.user) {
-			return res.status(401).json({ message: "Unathorized"});
+			return res.status(401).json({ message: "Unauthorized"});
 		}
 
 		const tasks = await taskService.getTasks(
@@ -56,7 +56,7 @@ export const remove = async (req: Request, res: Response, next: NextFunction) =>
 	try
 	{
 		if (!req.user) {
-			return res.status(401).json({ message: "Unathorized"});
+			return res.status(401).json({ message: "Unauthorized"});
 		}
 		
 		const taskId = Number(req.params.id);

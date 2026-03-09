@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
 import { prisma } from "../prisma";
 import bcrypt from "bcrypt";
-import { UnathorizedError } from "../errors/UnathorizedError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { logger } from "../config/logger";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
@@ -33,21 +34,22 @@ export const loginUser = async (email: string, password: string) => {
 	});
 
 	if (!user) {
-		throw new UnathorizedError("Invalid credentials");
+		throw new UnauthorizedError("Invalid credentials");
 	}
 
 	const validPassword = await bcrypt.compare(password, user.password);
 
 	if (!validPassword) {
-		throw new UnathorizedError("Invalid credentials");
+		throw new UnauthorizedError("Invalid credentials");
 	}
 
 	const token = jwt.sign(
-		{ userId: user.id, email: user.email, role: user.role },
+		{ userId: user.id, role: user.role },
 		process.env.JWT_SECRET as string,
 		{ expiresIn: "1h"}
 	);
 	
+	logger.info({ userId: user.id },"User logged in")
 	return ({
 		token,
 		user: {

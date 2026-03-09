@@ -1,7 +1,7 @@
 import { Role, User } from "@prisma/client";
 import { prisma } from "../prisma";
 import { NotFoundError } from "../errors/NotFoundError";
-import { UnathorizedError } from "../errors/UnathorizedError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { ForbiddenError } from "../errors/ForbiddenError";
 
 export const createTask = async (title: string, userId: number) => {
