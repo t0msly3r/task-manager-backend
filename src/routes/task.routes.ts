@@ -10,6 +10,8 @@ const router = Router();
  * /tasks:
  *   post:
  *     summary: Create a task
+ *     tags:
+ *       - Tasks
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -34,6 +36,8 @@ router.post("/",
  * /tasks:
  *   get:
  *     summary: Get all tasks
+ *     tags:
+ *       - Tasks
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -48,6 +52,8 @@ router.get("/",
  * /tasks/{id}:
  *   put:
  *     summary: Update a task
+ *     tags:
+ *       - Tasks
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -81,6 +87,8 @@ router.put("/:id",
  * /tasks/{id}:
  *   delete:
  *     summary: Delete a task
+ *     tags:
+ *       - Tasks
  *     security:
  *       - bearerAuth: []
  *     parameters:
