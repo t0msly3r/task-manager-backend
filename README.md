@@ -9,6 +9,14 @@ This project demonstrates a production-style Node.js backend using Express, Type
 It includes authentication with JWT, request validation, error handling, security middleware and Docker support.
 </p>
 
+<h2>API Documentation</h2>
+
+<p>The API is fully documented with Swagger:</p>
+
+<p align="center">
+  <img src="./assets/swagger.png" width="900"/>
+</p>
+
 <hr>
 
 <h2>Tech Stack</h2>
@@ -101,7 +109,6 @@ http://localhost:3000/docs
 
 <p>You can explore and test all endpoints directly from the browser.</p>
 
-
 <hr>
 
 <h2>Main Endpoints</h2>
@@ -148,8 +155,6 @@ JWT_SECRET=your_secret_key
 </pre>
 
 <hr>
-
-<h2>Future Improvements</h2>
 
 <h2>Future Improvements</h2>
 
