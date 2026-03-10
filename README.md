@@ -83,6 +83,15 @@ git clone https://github.com/t0msly3r/task-api.git
 cd task-manager-api
 </pre>
 
+<h3>Environment Variables</h3>
+
+<p>Create a <code>.env</code> file in the root directory:</p>
+
+<pre>
+DATABASE_URL=postgresql://admin:admin@postgres:5432/tasksdb
+JWT_SECRET=your_secret_key
+</pre>
+
 <p>Start the application with Docker:</p>
 
 <pre>
@@ -142,17 +151,6 @@ http://localhost:3000/docs
 <li>Rate limiting to prevent brute force attacks</li>
 <li>Secure HTTP headers with Helmet</li>
 </ul>
-
-<hr>
-
-<h2>Environment Variables</h2>
-
-<p>Create a <code>.env</code> file in the root directory:</p>
-
-<pre>
-DATABASE_URL=postgresql://admin:admin@postgres:5432/tasksdb
-JWT_SECRET=your_secret_key
-</pre>
 
 <hr>
 
