@@ -80,7 +80,7 @@ src
 
 <pre>
 git clone https://github.com/t0msly3r/task-api.git
-cd task-api
+cd task-manager-api
 </pre>
 
 <p>Start the application with Docker:</p>
