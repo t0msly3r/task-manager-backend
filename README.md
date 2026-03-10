@@ -1,12 +1,12 @@
 <h1>Task Manager API</h1>
 
 <p>
-A RESTful backend API for managing tasks with authentication, role-based authorization and secure best practices.
+  A RESTful backend API for managing tasks with authentication, role-based authorization and secure best practices.
 </p>
 
 <p>
-This project demonstrates a production-style Node.js backend using Express, TypeScript, Prisma and PostgreSQL.
-It includes authentication with JWT, request validation, error handling, security middleware and Docker support.
+  This project demonstrates a production-style Node.js backend using Express, TypeScript, Prisma and PostgreSQL.
+  It includes authentication with JWT, request validation, error handling, security middleware and Docker support.
 </p>
 
 <h2>API Documentation</h2>
@@ -43,7 +43,7 @@ It includes authentication with JWT, request validation, error handling, securit
 <p>The application follows a layered architecture:</p>
 
 <pre>
-Routes → Controllers → Services → Database
+  Routes → Controllers → Services → Database
 </pre>
 
 <ul>
@@ -60,16 +60,16 @@ Routes → Controllers → Services → Database
 <h2>Project Structure</h2>
 
 <pre>
-src
-├── controllers
-├── services
-├── routes
-├── middlewares
-├── errors
-├── schemas
-├── config
-├── prisma
-└── server.ts
+  src
+  ├── controllers
+  ├── services
+  ├── routes
+  ├── middlewares
+  ├── errors
+  ├── schemas
+  ├── config
+  ├── prisma
+  └── server.ts
 </pre>
 
 <hr>
@@ -79,8 +79,8 @@ src
 <p>Clone the repository:</p>
 
 <pre>
-git clone https://github.com/t0msly3r/task-api.git
-cd task-manager-api
+  git clone https://github.com/t0msly3r/task-api.git
+  cd task-manager-api
 </pre>
 
 <h3>Environment Variables</h3>
@@ -88,20 +88,28 @@ cd task-manager-api
 <p>Create a <code>.env</code> file in the root directory:</p>
 
 <pre>
-DATABASE_URL=postgresql://admin:admin@postgres:5432/tasksdb
-JWT_SECRET=your_secret_key
+  DATABASE_URL=postgresql://admin:admin@postgres:5432/tasksdb
+  JWT_SECRET=your_secret_key
 </pre>
 
-<p>Start the application with Docker:</p>
+<p>Run the application with Docker:</p>
 
 <pre>
-docker-compose up --build
+  docker-compose up --build
+</pre>
+
+<p>Run the application locally:</p>
+
+<pre>
+  npm install
+  npx prisma generate
+  npm run dev
 </pre>
 
 <p>The API will be available at:</p>
 
 <pre>
-http://localhost:3000
+  http://localhost:3000
 </pre>
 
 <hr>
