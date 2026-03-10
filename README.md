@@ -86,7 +86,7 @@ cd task-api
 <p>Start the application with Docker:</p>
 
 <pre>
-docker compose up --build
+docker-compose up --build
 </pre>
 
 <p>The API will be available at:</p>
