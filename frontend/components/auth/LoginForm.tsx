@@ -2,18 +2,26 @@
 
 import { useState } from "react";
 import { useLogin } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { on } from "events";
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const login = useLogin();
+    const router = useRouter();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
- 
-        if (!email.trim() || !password.trim()) return;
 
-        login.mutate({ email, password });
+        login.mutate(
+            { email, password },
+            {
+                onSuccess: () => {
+                    router.push("/dashboard/tasks");
+                }
+            }
+        );
     };
 
     return (

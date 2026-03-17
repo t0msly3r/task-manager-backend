@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import QueryProvider from "@/app/providers/query-provider";
-import "./globals.css";
+import QueryProvider from "./providers/query-provider";
+import AuthProvider from "./providers/auth-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +27,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <QueryProvider>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>

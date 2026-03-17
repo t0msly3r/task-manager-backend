@@ -5,6 +5,7 @@ export const useTasks = () => {
     return useQuery({
         queryKey: ['tasks'],
         queryFn: taskService.getTasks,
+        retry: false,
     });
 };
 
