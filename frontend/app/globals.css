@@ -19,6 +19,13 @@
   }
 }
 
+@layer base {
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

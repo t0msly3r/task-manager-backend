@@ -6,7 +6,9 @@ export function proxy(req: NextRequest) {
 
   const isAuth = !!token;
   const isDashboard = req.nextUrl.pathname.startsWith("/dashboard");
-  const isAuthPage = req.nextUrl.pathname.startsWith("/login");
+  const isAuthPage =
+    req.nextUrl.pathname.startsWith("/login") ||
+    req.nextUrl.pathname.startsWith("/register");
 
   // proteger dashboard
   if (!isAuth && isDashboard) {
@@ -19,11 +21,10 @@ export function proxy(req: NextRequest) {
   }
 
   console.log("PATH:", req.nextUrl.pathname, "TOKEN:", !!token);
-  
+
   return NextResponse.next();
 }
 
 export const config = {
   matcher: ["/dashboard/:path*", "/login"],
 };
-

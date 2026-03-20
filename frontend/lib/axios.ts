@@ -13,7 +13,7 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
-})
+});
 
 export const config = {
   matcher: ["/dashboard/:path*"],
@@ -23,7 +23,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      console.log("Unathorized → logout");
+      console.log("Token expired → logout");
 
       Cookies.remove("token");
 
@@ -31,5 +31,5 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
-)
+  },
+);

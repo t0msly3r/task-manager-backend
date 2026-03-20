@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { Task } from "@/types/tasks"
+import { Task } from "@/types/tasks";
 
 export const createTask = async (data: { title: string }): Promise<Task> => {
   const res = await api.post("/tasks", data);

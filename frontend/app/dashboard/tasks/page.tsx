@@ -2,6 +2,8 @@
 
 import { useTasks } from "@/hooks/useTasks";
 import { useAuth } from "@/hooks/useAuth";
+import TasksItem from "@/components/tasks/TasksItem";
+import CreateTask from "@/components/tasks/CreateTask";
 
 export default function TasksPage() {
   const { data: tasks, isLoading } = useTasks();
@@ -11,13 +13,19 @@ export default function TasksPage() {
 
   return (
     <div>
-      <h2>Welcome {user?.email}</h2>
+      <h2 className="text-3xl font-semibold mb-6 text-black text-shadow-sm">
+        Welcome {user?.email}
+      </h2>
 
-      <ul>
+      <CreateTask />
+
+      {!tasks?.length && (
+        <p className="text-gray-500 mt-4">No tasks yet. Create one 👇</p>
+      )}
+
+      <ul className="flex flex-col gap-3 mt-4">
         {tasks?.map((task) => (
-          <li key={task.id}>
-            {task.title} - {task.completed ? "Completed" : "Incomplete"}
-          </li>
+          <TasksItem key={task.id} task={task} />
         ))}
       </ul>
     </div>
