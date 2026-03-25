@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as taskService from '../services/task.service';
+import { UnauthorizedError } from '../errors/UnauthorizedError';
 
 export const create = async (
   req: Request,
@@ -9,7 +10,7 @@ export const create = async (
   try {
     const { title } = req.body;
     if (!req.user) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      throw new UnauthorizedError('User not authorized');
     }
     const userId = req.user.userId;
     const task = await taskService.createTask(title, userId);
@@ -26,7 +27,7 @@ export const getAll = async (
 ) => {
   try {
     if (!req.user) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      throw new UnauthorizedError('User not authenticated');
     }
 
     const tasks = await taskService.getTasks(req.user.userId, req.user.role);
@@ -43,7 +44,12 @@ export const update = async (
 ) => {
   try {
     const id = Number(req.params.id);
-    const { userId, role } = req.user!;
+
+    if (!req.user) {
+      throw new UnauthorizedError('User not authenticated');
+    }
+
+    const { userId, role } = req.user;
     const { title, completed } = req.body;
     const task = await taskService.updateTask(
       id,
@@ -65,7 +71,7 @@ export const remove = async (
 ) => {
   try {
     if (!req.user) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      throw new UnauthorizedError('User not authenticated');
     }
 
     const taskId = Number(req.params.id);

@@ -107,6 +107,11 @@ router.put(
  *       204:
  *         description: Task deleted
  */
-router.delete('/:id', authenticate, taskController.remove);
+router.delete(
+  '/:id',
+  authenticate,
+  validate(idParamSchema, 'params'),
+  taskController.remove,
+);
 
 export default router;

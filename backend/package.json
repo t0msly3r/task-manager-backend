@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "lint": "eslint src --ext .ts",
-    "format": "prettier --write src"
+    "format": "prettier --write"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,6 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "express-rate-limit": "^8.3.0",
-    "expresss": "^0.0.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "pino": "^10.3.1",

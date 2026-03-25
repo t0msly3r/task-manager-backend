@@ -5,7 +5,7 @@ import { logger } from '../config/logger';
 
 export const errorMiddleware = (
   err: unknown,
-  req: Request,
+  _req: Request,
   res: Response,
   _next: NextFunction,
 ) => {

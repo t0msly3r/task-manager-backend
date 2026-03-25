@@ -13,7 +13,7 @@ export const createTask = async (title: string, userId: number) => {
 };
 
 export const getTasks = async (userId: number, role: Role) => {
-  if (role == 'ADMIN') {
+  if (role == Role.ADMIN) {
     return prisma.task.findMany();
   }
 
@@ -37,7 +37,7 @@ export const updateTask = async (
     throw new NotFoundError('Task not found');
   }
 
-  if (task.userId !== userId && role !== 'ADMIN') {
+  if (task.userId !== userId && role !== Role.ADMIN) {
     throw new ForbiddenError('You cannot update this task');
   }
 
@@ -63,7 +63,7 @@ export const deleteTask = async (
     throw new NotFoundError('Task no found');
   }
 
-  if (role !== 'ADMIN' && task.userId !== userId) {
+  if (role !== Role.ADMIN && task.userId !== userId) {
     throw new ForbiddenError('You cannot access this task');
   }
 

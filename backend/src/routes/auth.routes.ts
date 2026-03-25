@@ -4,7 +4,7 @@ import { validate } from '../middlewares/validate.middleware';
 import { registerSchema, loginSchema } from '../validators/auth.schema';
 import { authenticate } from '../middlewares/authentication.middleware';
 import { loginRateLimiter } from '../middlewares/rateLimit.middleware';
-
+//TODO: add register rate limiter
 const router = Router();
 
 /**

@@ -9,6 +9,8 @@ export const updateTaskSchema = z.object({
   completed: z.boolean().optional(),
 });
 
+export type UpdateTask = z.infer<typeof updateTaskSchema>;
+
 export const idParamSchema = z.object({
   id: z.coerce.number().int().positive(),
 });

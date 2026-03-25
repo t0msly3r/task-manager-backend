@@ -5,6 +5,7 @@ import { UnauthorizedError } from '../errors/UnauthorizedError';
 import { NotFoundError } from '../errors/NotFoundError';
 import { logger } from '../config/logger';
 import { env } from '../config/env';
+import { AppError } from '../errors/AppError';
 
 const JWT_SECRET = env.JWT_SECRET;
 
@@ -14,7 +15,7 @@ export const registerUser = async (email: string, password: string) => {
   });
 
   if (existingUser) {
-    throw new Error('User already exist');
+    throw new AppError('User already exist', 400);
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -46,9 +47,13 @@ export const loginUser = async (email: string, password: string) => {
     throw new UnauthorizedError('Invalid credentials');
   }
 
-  const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, {
-    expiresIn: '1h',
-  });
+  const token = jwt.sign(
+    { userId: user.id, email: user.email, role: user.role },
+    JWT_SECRET,
+    {
+      expiresIn: '1h',
+    },
+  );
 
   logger.info({ userId: user.id }, 'User logged in');
   return {
