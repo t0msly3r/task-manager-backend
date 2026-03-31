@@ -23,7 +23,6 @@ services:
       - '3000:3000'
     env_file:
       - .env
-    command: npm run dev
 
 volumes:
   postgres_data:

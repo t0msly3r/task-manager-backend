@@ -3,3 +3,7 @@
 !package.json
 !tsconfig.json
 !package-lock.json
+!.env
+!.git
+!node_modules/
+!build

@@ -1,20 +1,31 @@
-# Separate in multistage, install just production dependencies and add unnecessary files
-# to .dockerignore to reduce image size
+# Dependencies
 FROM node:20 as dependencies
+WORKDIR /app
 
 COPY package*.json ./
+RUN npm ci
 
-RUN npm ci --production
-
+# Build
 FROM node:20 as build
+WORKDIR /app
 
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 
+RUN npm run build
+
+# Production
+FROM node:20 AS production
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY --from=build /app/build ./build
+COPY --from=build /app/prisma ./prisma
+
+RUN npx prisma generate
+
 EXPOSE 3000
 
-# Either separate prisma migrate on a different dockerfile or
-# prepare dockerfile to be able to run migrate but don't run it on CMD
-# and run node build/app.js instead of npm run dev
-# add build script to package json for build stage
-CMD npx prisma migrate deploy && node build/app.js
+CMD npx prisma migrate deploy && node build/server.js
