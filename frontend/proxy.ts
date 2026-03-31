@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
+// instead of doing this, use next/auth and just protect the routes you want
 export function proxy(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 

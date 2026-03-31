@@ -15,10 +15,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const config = {
-  matcher: ["/dashboard/:path*"],
-};
-
 api.interceptors.response.use(
   (response) => response,
   (error) => {

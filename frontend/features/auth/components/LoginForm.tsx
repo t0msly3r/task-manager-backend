@@ -1,24 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import { useRegister } from "@/hooks/useAuth";
+import { useLogin } from "@/features/auth/hooks/useAuth";
 import { useRouter } from "next/navigation";
 
-export default function RegisterForm() {
-  const register = useRegister();
+export default function LoginForm() {
+  const login = useLogin();
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    register.mutate(
+    login.mutate(
       { email, password },
       {
         onSuccess: () => {
-          router.push("/dashboard/tasks");
+          router.push("/tasks");
+        },
+        onError: (error: unknown) => {
+          const status = (error as { response?: { status?: number } }).response
+            ?.status;
+
+          if (status === 401) {
+            setErrorMessage("Invalid credentials");
+          } else if (status === 429) {
+            setErrorMessage("Too many attempts. Please try again later.");
+          } else {
+            setErrorMessage("An error occurred. Please try again.");
+          }
+          setPassword("");
         },
       },
     );
@@ -29,7 +43,7 @@ export default function RegisterForm() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-3 max-w-sm mx-auto mt-10"
     >
-      <h2 className="text-xl font-bold">Register</h2>
+      <h2 className="text-xl font-bold">Login</h2>
 
       <input
         className="border p-2 rounded"
@@ -49,21 +63,22 @@ export default function RegisterForm() {
 
       <button
         className="bg-blue-500 text-white p-2 rounded"
-        disabled={register.isPending}
+        disabled={login.isPending}
       >
-        {register.isPending ? "Creating..." : "Register"}
+        {login.isPending ? "Logging in..." : "Login"}
       </button>
 
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+
       <p className="text-sm text-gray-500">
-        Already have an account?{" "}
+        Don't have an account?{" "}
         <span
-          onClick={() => router.push("/login")}
+          onClick={() => router.push("/register")}
           className="text-blue-500 cursor-pointer hover:underline"
         >
-          Login
+          Register
         </span>
       </p>
-      {register.error && <p className="text-red-500">Error creating account</p>}
     </form>
   );
 }

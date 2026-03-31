@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import * as taskService from "@/services/task.service";
+import * as taskService from "@/features/tasks/services/task.service";
 
 export const useTasks = () => {
   return useQuery({

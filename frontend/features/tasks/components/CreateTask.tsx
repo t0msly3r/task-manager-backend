@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useCreateTask } from "@/hooks/useTasks";
+import { useCreateTask } from "@/features/tasks/hooks/useTasks";
 
 export default function CreateTask() {
   const [title, setTitle] = useState("");

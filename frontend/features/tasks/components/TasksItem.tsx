@@ -1,7 +1,7 @@
 "use client";
 
-import { useDeleteTask, useUpdateTask } from "@/hooks/useTasks";
-import { useAuth } from "@/hooks/useAuth";
+import { useDeleteTask, useUpdateTask } from "@/features/tasks/hooks/useTasks";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Task } from "@/types/tasks";
 
 export default function TasksItem({ task }: { task: Task }) {

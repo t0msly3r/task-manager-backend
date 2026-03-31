@@ -1,9 +1,9 @@
 "use client";
 
-import { useTasks } from "@/hooks/useTasks";
-import { useAuth } from "@/hooks/useAuth";
-import TasksItem from "@/components/tasks/TasksItem";
-import CreateTask from "@/components/tasks/CreateTask";
+import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import TasksItem from "@/features/tasks/components/TasksItem";
+import CreateTask from "@/features/tasks/components/CreateTask";
 
 export default function TasksPage() {
   const { data: tasks, isLoading } = useTasks();

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useLogin } from "@/hooks/useAuth";
+import { useRegister } from "@/features/auth/hooks/useAuth";
 import { useRouter } from "next/navigation";
 
-export default function LoginForm() {
-  const login = useLogin();
+export default function RegisterForm() {
+  const register = useRegister();
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -14,11 +14,11 @@ export default function LoginForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    login.mutate(
+    register.mutate(
       { email, password },
       {
         onSuccess: () => {
-          router.push("/dashboard/tasks");
+          router.push("/tasks");
         },
       },
     );
@@ -29,7 +29,7 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-3 max-w-sm mx-auto mt-10"
     >
-      <h2 className="text-xl font-bold">Login</h2>
+      <h2 className="text-xl font-bold">Register</h2>
 
       <input
         className="border p-2 rounded"
@@ -49,23 +49,21 @@ export default function LoginForm() {
 
       <button
         className="bg-blue-500 text-white p-2 rounded"
-        disabled={login.isPending}
+        disabled={register.isPending}
       >
-        {login.isPending ? "Logging in..." : "Login"}
+        {register.isPending ? "Creating..." : "Register"}
       </button>
 
-      {login.error && <p className="text-red-500">Invalid credentials</p>}
-
-      {/* 🔥 LINK A REGISTER */}
       <p className="text-sm text-gray-500">
-        Don’t have an account?{" "}
+        Already have an account?{" "}
         <span
-          onClick={() => router.push("/register")}
+          onClick={() => router.push("/login")}
           className="text-blue-500 cursor-pointer hover:underline"
         >
-          Register
+          Login
         </span>
       </p>
+      {register.error && <p className="text-red-500">Error creating account</p>}
     </form>
   );
 }

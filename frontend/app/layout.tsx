@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import QueryProvider from "./providers/query-provider";
-import AuthProvider from "./providers/auth-provider";
+import QueryProvider from "../providers/query-provider";
+import AuthProvider from "../providers/auth-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {

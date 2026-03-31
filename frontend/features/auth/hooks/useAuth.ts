@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import * as authService from "@/services/auth.service";
+import * as authService from "@/features/auth/services/auth.service";
 import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 
