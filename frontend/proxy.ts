@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-// instead of doing this, use next/auth and just protect the routes you want
 export function proxy(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
@@ -11,14 +10,12 @@ export function proxy(req: NextRequest) {
     req.nextUrl.pathname.startsWith("/login") ||
     req.nextUrl.pathname.startsWith("/register");
 
-  // proteger dashboard
   if (!isAuth && isDashboard) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // evitar entrar a login si ya estás logueado
   if (isAuth && isAuthPage) {
-    return NextResponse.redirect(new URL("/dashboard/tasks", req.url));
+    return NextResponse.redirect(new URL("/tasks", req.url));
   }
 
   console.log("PATH:", req.nextUrl.pathname, "TOKEN:", !!token);
@@ -27,5 +24,5 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/tasks/:path*", "/login"],
 };
