@@ -3,5 +3,6 @@ dist
 .env
 coverage
 generated
+todo.txt
 
 /src/generated/prisma

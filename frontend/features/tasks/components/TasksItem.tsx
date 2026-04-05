@@ -3,6 +3,7 @@
 import { useDeleteTask, useUpdateTask } from "@/features/tasks/hooks/useTasks";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Task } from "@/types/tasks";
+import { useState } from "react";
 
 export default function TasksItem({ task }: { task: Task }) {
   const { data: user } = useAuth();
@@ -14,6 +15,8 @@ export default function TasksItem({ task }: { task: Task }) {
 
   const canEdit = isAdmin || isOwner;
 
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
   const handleToggle = () => {
     updateTask.mutate({
       id: task.id,
@@ -22,8 +25,11 @@ export default function TasksItem({ task }: { task: Task }) {
     });
   };
 
-  const handleDelete = () => {
-    deleteTask.mutate(task.id);
+  const handleDelete = (id: number) => {
+    setDeletingId(id);
+    deleteTask.mutate(id, {
+      onSettled: () => setDeletingId(null),
+    });
   };
 
   return (
@@ -39,10 +45,11 @@ export default function TasksItem({ task }: { task: Task }) {
 
       {canEdit && (
         <button
-          onClick={handleDelete}
+          onClick={() => handleDelete(task.id)}
+          disabled={deletingId === task.id}
           className="text-sm text-red-500 hover:text-red-700 transition"
         >
-          Delete
+          {deleteTask.isPending ? "Deleting..." : "Delete"}
         </button>
       )}
     </li>

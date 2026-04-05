@@ -9,7 +9,15 @@ export default function TasksPage() {
   const { data: tasks, isLoading } = useTasks();
   const { data: user } = useAuth();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return (
+      <div className="space-y-3 mt-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-12 bg-gray-200 animate-pulse rounded-lg" />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>
